@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Udio Media Player</title>
+    <title>Universal Video Player</title>
     
     <!-- Production CDN with stable version -->
     <script src="https://cdn.tailwindcss.com/3.4.16"></script>
@@ -13,7 +13,7 @@
         default-src 'self' https: cdn.tailwindcss.com;
         style-src 'self' https: cdn.tailwindcss.com 'unsafe-inline';
         script-src 'self' https: cdn.tailwindcss.com;
-        frame-src 'self' https://www.udio.com;
+        media-src 'self' blob: https://www.udio.com;
         object-src 'self' https://www.udio.com;
     ">
 </head>
@@ -22,17 +22,28 @@
     <main class="container mx-auto px-4 md:px-6 lg:px-8 py-8">
         <div class="grid gap-8 md:gap-12">
             <div class="bg-white rounded-lg shadow-md p-6">
-                <!-- Iframe implementation -->
+                <!-- Universal video player -->
                 <div class="relative w-full aspect-video">
-                    <iframe 
-                        class="w-full h-full rounded-md"
-                        src="https://www.udio.com/embed/8ivWt3H2YQcRnbWeYwioux?embedVariant=alternate&utm_source=generator"
-                        frameborder="0"
-                        allowfullscreen
-                        loading="lazy"
-                        onerror="handleMediaError(this)"
-                        style="border-radius: 12px;"
-                    ></iframe>
+                    <!-- Primary video element -->
+                    <video 
+                        class="w-full h-full object-cover rounded-md"
+                        controls
+                        preload="metadata"
+                        playsinline
+                        webkit-playsinline
+                        x5-playsinline
+                        disablepictureinpicture
+                        onerror="handleVideoError(this)"
+                    >
+                        <!-- Multiple source formats for universal support -->
+                        <source src="video.mp4" type="video/mp4">
+                        <source src="video.webm" type="video/webm">
+                        
+                        <!-- Fallback content -->
+                        <div class="absolute inset-0 flex items-center justify-center bg-gray-100 rounded-md">
+                            <p class="text-gray-600">Your browser does not support the video tag.</p>
+                        </div>
+                    </video>
                     
                     <!-- Error messages -->
                     <div id="error-message" class="hidden absolute inset-0 flex items-center justify-center bg-gray-100 rounded-md">
@@ -47,16 +58,18 @@
     </main>
 
     <script>
-        function handleMediaError(element) {
+        function handleVideoError(video) {
             const errorContainer = document.getElementById('error-message');
             const errorDetails = document.getElementById('error-details');
             
             // Show error container
             errorContainer.classList.remove('hidden');
             
-            // Set specific error message
-            if (element.src.includes('udio.com')) {
-                errorDetails.textContent = 'Please check if the udio.com link is valid and accessible.';
+            // Check browser capabilities
+            if (!video.canPlayType('video/mp4')) {
+                errorDetails.textContent = 'Your browser does not support MP4 format. Please try a different browser or update your current one.';
+            } else if (!video.canPlayType('video/webm')) {
+                errorDetails.textContent = 'Your browser does not support WebM format. Please try a different browser or update your current one.';
             } else {
                 errorDetails.textContent = 'Unable to load media content. Please try again later.';
             }
