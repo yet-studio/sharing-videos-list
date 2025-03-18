@@ -13,7 +13,7 @@
         default-src 'self' https: cdn.tailwindcss.com;
         style-src 'self' https: cdn.tailwindcss.com 'unsafe-inline';
         script-src 'self' https: cdn.tailwindcss.com;
-        media-src 'self' https://www.udio.com;
+        frame-src 'self' https://www.udio.com;
         object-src 'self' https://www.udio.com;
     ">
 </head>
@@ -22,24 +22,25 @@
     <main class="container mx-auto px-4 md:px-6 lg:px-8 py-8">
         <div class="grid gap-8 md:gap-12">
             <div class="bg-white rounded-lg shadow-md p-6">
-                <!-- Object tag implementation -->
+                <!-- Iframe implementation -->
                 <div class="relative w-full aspect-video">
-                    <object 
+                    <iframe 
                         class="w-full h-full rounded-md"
-                        data="https://www.udio.com/songs/8ivWt3H2YQcRnbWeYwioux"
-                        type="video/mp4"
-                        width="100%"
-                        height="100%"
+                        src="https://www.udio.com/embed/8ivWt3H2YQcRnbWeYwioux?embedVariant=alternate&utm_source=generator"
+                        frameborder="0"
+                        allowfullscreen
+                        loading="lazy"
                         onerror="handleMediaError(this)"
-                    >
-                        <param name="autoplay" value="false">
-                        <param name="controls" value="true">
-                        
-                        <!-- Fallback content -->
-                        <div class="absolute inset-0 flex items-center justify-center bg-gray-100 rounded-md">
-                            <p class="text-gray-600">Your browser does not support this media format.</p>
+                        style="border-radius: 12px;"
+                    ></iframe>
+                    
+                    <!-- Error messages -->
+                    <div id="error-message" class="hidden absolute inset-0 flex items-center justify-center bg-gray-100 rounded-md">
+                        <div class="text-center">
+                            <p class="text-gray-600">Error loading media.</p>
+                            <p class="text-gray-500 mt-2" id="error-details"></p>
                         </div>
-                    </object>
+                    </div>
                 </div>
             </div>
         </div>
@@ -47,19 +48,18 @@
 
     <script>
         function handleMediaError(element) {
-            const errorContainer = document.createElement('div');
-            errorContainer.className = 'absolute inset-0 flex items-center justify-center bg-gray-100 rounded-md';
+            const errorContainer = document.getElementById('error-message');
+            const errorDetails = document.getElementById('error-details');
             
             // Show error container
-            element.parentNode.insertBefore(errorContainer, element.nextSibling);
+            errorContainer.classList.remove('hidden');
             
             // Set specific error message
-            errorContainer.innerHTML = `
-                <div class="text-center">
-                    <p class="text-gray-600">Error loading media.</p>
-                    <p class="text-gray-500 mt-2">Please check if the udio.com link is valid and accessible.</p>
-                </div>
-            `;
+            if (element.src.includes('udio.com')) {
+                errorDetails.textContent = 'Please check if the udio.com link is valid and accessible.';
+            } else {
+                errorDetails.textContent = 'Unable to load media content. Please try again later.';
+            }
         }
     </script>
 </body>
