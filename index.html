@@ -34,6 +34,25 @@
     <meta http-equiv="X-Frame-Options" content="DENY">
     <meta http-equiv="X-XSS-Protection" content="1; mode=block">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    
+    <!-- Custom styles for video container -->
+    <style>
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #000;
+        }
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 </head>
 
 <body class="min-h-screen bg-secondary text-primary font-sans">
@@ -45,19 +64,15 @@
 
     <main class="container mx-auto px-4 md:px-6 lg:px-8 py-8">
         <div class="grid gap-8 md:gap-12">
-            <!-- Example iframe container -->
-            <div class="bg-white rounded-lg shadow-md p-6">
-                <iframe 
-                    src="https://www.udio.com/embed/8ivWt3H2YQcRnbWeYwioux?embedVariant=alternate&utm_source=generator"
-                    class="w-full aspect-video border-none rounded-md"
-                    frameborder="0"
-                    loading="lazy"
-                    allowfullscreen
-                    title="Audio Embed"
-                ></iframe>
+            <!-- Example video container -->
+            <div class="video-container">
+                <video controls>
+                    <source src="https://www.udio.com/embed/8ivWt3H2YQcRnbWeYwioux?embedVariant=alternate&utm_source=generator" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
             </div>
 
-            <!-- Add more iframe containers as needed -->
+            <!-- Add more video containers as needed -->
         </div>
     </main>
 
@@ -70,17 +85,17 @@
     <!-- Accessibility enhancement -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const iframes = document.querySelectorAll('iframe');
-            iframes.forEach(iframe => {
-                const container = iframe.parentElement;
-                const title = iframe.title || 'Embedded Content';
+            const videos = document.querySelectorAll('video');
+            videos.forEach(video => {
+                const container = video.parentElement;
+                const title = video.title || 'Embedded Content';
                 const description = `${title}. Press tab to focus, then enter to activate.`;
                 
                 const label = document.createElement('span');
                 label.className = 'sr-only';
                 label.textContent = description;
                 
-                container.insertBefore(label, iframe);
+                container.insertBefore(label, video);
             });
         });
     </script>
