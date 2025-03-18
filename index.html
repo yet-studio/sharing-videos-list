@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embed Links Collection</title>
+    
+    <!-- Favicon setup -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Theme configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb',
+                        secondary: '#f1f5f9'
+                    }
+                },
+                fontFamily: {
+                    sans: ['Inter', 'sans-serif']
+                }
+            }
+        }
+    </script>
+
+    <!-- Security headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:;">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+</head>
+
+<body class="min-h-screen bg-secondary text-primary font-sans">
+    <header class="bg-primary text-white py-4 md:py-6">
+        <div class="container mx-auto px-4 md:px-6 lg:px-8">
+            <h1 class="text-2xl md:text-3xl font-bold text-center">Embed Links Collection</h1>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 md:px-6 lg:px-8 py-8">
+        <div class="grid gap-8 md:gap-12">
+            <!-- Example iframe container -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <iframe 
+                    src="https://www.udio.com/embed/8ivWt3H2YQcRnbWeYwioux?embedVariant=alternate&utm_source=generator"
+                    class="w-full aspect-video border-none rounded-md"
+                    frameborder="0"
+                    loading="lazy"
+                    allowfullscreen
+                    title="Audio Embed"
+                ></iframe>
+            </div>
+
+            <!-- Add more iframe containers as needed -->
+        </div>
+    </main>
+
+    <footer class="bg-primary text-white py-4 mt-auto">
+        <div class="container mx-auto px-4 md:px-6 lg:px-8 text-center">
+            <p class="text-sm">© 2025 Your Name</p>
+        </div>
+    </footer>
+
+    <!-- Accessibility enhancement -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const iframes = document.querySelectorAll('iframe');
+            iframes.forEach(iframe => {
+                const container = iframe.parentElement;
+                const title = iframe.title || 'Embedded Content';
+                const description = `${title}. Press tab to focus, then enter to activate.`;
+                
+                const label = document.createElement('span');
+                label.className = 'sr-only';
+                label.textContent = description;
+                
+                container.insertBefore(label, iframe);
+            });
+        });
+    </script>
+</body>
+</html>
