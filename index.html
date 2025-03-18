@@ -13,9 +13,7 @@
         default-src 'self' https: cdn.tailwindcss.com;
         style-src 'self' https: cdn.tailwindcss.com 'unsafe-inline';
         script-src 'self' https: cdn.tailwindcss.com;
-        frame-src 'self' https://www.udio.com;
-        img-src 'self' https: data:;
-        media-src 'self' https://www.udio.com;
+        media-src 'self' blob:;
     ">
     
     <!-- Favicon setup -->
@@ -33,16 +31,28 @@
     <main class="container mx-auto px-4 md:px-6 lg:px-8 py-8">
         <div class="grid gap-8 md:gap-12">
             <div class="bg-white rounded-lg shadow-md p-6">
-                <!-- Native video implementation -->
-                <video 
-                    class="w-full aspect-video border-none rounded-md"
-                    controls
-                    preload="metadata"
-                    poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3Ctext x='200' y='150' font-family='Arial' font-size='24' text-anchor='middle' fill='%236b7280'%3EVideo%20Placeholder%3C/text%3E%3C/svg%3E"
-                >
-                    <source src="https://www.udio.com/songs/8ivWt3H2YQcRnbWeYwioux" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
+                <!-- Universal video player -->
+                <div class="relative w-full aspect-video">
+                    <video 
+                        class="w-full h-full object-cover rounded-md"
+                        controls
+                        preload="metadata"
+                        poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3Ctext x='200' y='150' font-family='Arial' font-size='24' text-anchor='middle' fill='%236b7280'%3EVideo%20Placeholder%3C/text%3E%3C/svg%3E'"
+                        playsinline
+                        webkit-playsinline
+                        x5-playsinline
+                        disablepictureinpicture
+                    >
+                        <!-- Multiple source formats for universal support -->
+                        <source src="video.mp4" type="video/mp4">
+                        <source src="video.webm" type="video/webm">
+                        
+                        <!-- Fallback content -->
+                        <div class="absolute inset-0 flex items-center justify-center bg-gray-100 rounded-md">
+                            <p class="text-gray-600">Your browser does not support the video tag.</p>
+                        </div>
+                    </video>
+                </div>
             </div>
         </div>
     </main>
