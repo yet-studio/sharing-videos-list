@@ -45,19 +45,19 @@
 
     <main class="container mx-auto px-4 md:px-6 lg:px-8 py-8">
         <div class="grid gap-8 md:gap-12">
-            <!-- Example iframe container -->
+            <!-- Example link container -->
             <div class="bg-white rounded-lg shadow-md p-6">
-                <iframe 
-                    src="https://www.udio.com/embed/8ivWt3H2YQcRnbWeYwioux?embedVariant=alternate&utm_source=generator"
-                    class="w-full aspect-video border-none rounded-md"
-                    frameborder="0"
-                    loading="lazy"
-                    allowfullscreen
-                    title="Audio Embed"
-                ></iframe>
+                <a 
+                    href="https://www.udio.com/songs/8ivWt3H2YQcRnbWeYwioux?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+                    class="text-blue-500 underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Listen to the song
+                </a>
             </div>
 
-            <!-- Add more iframe containers as needed -->
+            <!-- Add more link containers as needed -->
         </div>
     </main>
 
@@ -66,23 +66,5 @@
             <p class="text-sm">© 2025 Your Name</p>
         </div>
     </footer>
-
-    <!-- Accessibility enhancement -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const iframes = document.querySelectorAll('iframe');
-            iframes.forEach(iframe => {
-                const container = iframe.parentElement;
-                const title = iframe.title || 'Embedded Content';
-                const description = `${title}. Press tab to focus, then enter to activate.`;
-                
-                const label = document.createElement('span');
-                label.className = 'sr-only';
-                label.textContent = description;
-                
-                container.insertBefore(label, iframe);
-            });
-        });
-    </script>
 </body>
 </html>
