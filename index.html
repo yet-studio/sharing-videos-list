@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Universal Video Player</title>
+    <title>Udio Media Player</title>
     
     <!-- Production CDN with stable version -->
     <script src="https://cdn.tailwindcss.com/3.4.16"></script>
@@ -13,7 +13,8 @@
         default-src 'self' https: cdn.tailwindcss.com;
         style-src 'self' https: cdn.tailwindcss.com 'unsafe-inline';
         script-src 'self' https: cdn.tailwindcss.com;
-        media-src 'self' blob:;
+        media-src 'self' https://www.udio.com;
+        object-src 'self' https://www.udio.com;
     ">
 </head>
 
@@ -21,63 +22,44 @@
     <main class="container mx-auto px-4 md:px-6 lg:px-8 py-8">
         <div class="grid gap-8 md:gap-12">
             <div class="bg-white rounded-lg shadow-md p-6">
-                <!-- Universal video player -->
+                <!-- Object tag implementation -->
                 <div class="relative w-full aspect-video">
-                    <video 
-                        class="w-full h-full object-cover rounded-md"
-                        controls
-                        preload="metadata"
-                        poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3Ctext x='200' y='150' font-family='Arial' font-size='24' text-anchor='middle' fill='%236b7280'%3EVideo%20Placeholder%3C/text%3E%3C/svg%3E'"
-                        playsinline
-                        webkit-playsinline
-                        x5-playsinline
-                        disablepictureinpicture
-                        onerror="handleVideoError(this)"
+                    <object 
+                        class="w-full h-full rounded-md"
+                        data="https://www.udio.com/songs/8ivWt3H2YQcRnbWeYwioux"
+                        type="video/mp4"
+                        width="100%"
+                        height="100%"
+                        onerror="handleMediaError(this)"
                     >
-                        <!-- Multiple source formats for universal support -->
-                        <source src="video.mp4" type="video/mp4">
-                        <source src="video.webm" type="video/webm">
+                        <param name="autoplay" value="false">
+                        <param name="controls" value="true">
                         
                         <!-- Fallback content -->
                         <div class="absolute inset-0 flex items-center justify-center bg-gray-100 rounded-md">
-                            <p class="text-gray-600">Your browser does not support the video tag.</p>
+                            <p class="text-gray-600">Your browser does not support this media format.</p>
                         </div>
-                    </video>
+                    </object>
                 </div>
             </div>
         </div>
     </main>
 
     <script>
-        function handleVideoError(video) {
+        function handleMediaError(element) {
             const errorContainer = document.createElement('div');
             errorContainer.className = 'absolute inset-0 flex items-center justify-center bg-gray-100 rounded-md';
             
-            // Check for specific errors
-            if (video.error.code === 4) {
-                errorContainer.innerHTML = `
-                    <div class="text-center">
-                        <p class="text-gray-600">Unsupported video format.</p>
-                        <p class="text-gray-500 mt-2">Please ensure your video is in MP4 or WebM format.</p>
-                    </div>
-                `;
-            } else if (video.error.code === 2) {
-                errorContainer.innerHTML = `
-                    <div class="text-center">
-                        <p class="text-gray-600">Network error loading video.</p>
-                        <p class="text-gray-500 mt-2">Please check your internet connection.</p>
-                    </div>
-                `;
-            } else {
-                errorContainer.innerHTML = `
-                    <div class="text-center">
-                        <p class="text-gray-600">An error occurred while loading the video.</p>
-                        <p class="text-gray-500 mt-2">Error code: ${video.error.code}</p>
-                    </div>
-                `;
-            }
+            // Show error container
+            element.parentNode.insertBefore(errorContainer, element.nextSibling);
             
-            video.parentNode.insertBefore(errorContainer, video.nextSibling);
+            // Set specific error message
+            errorContainer.innerHTML = `
+                <div class="text-center">
+                    <p class="text-gray-600">Error loading media.</p>
+                    <p class="text-gray-500 mt-2">Please check if the udio.com link is valid and accessible.</p>
+                </div>
+            `;
         }
     </script>
 </body>
