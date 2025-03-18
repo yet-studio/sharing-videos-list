@@ -22,11 +22,10 @@
     <main class="container mx-auto px-4 md:px-6 lg:px-8 py-8">
         <div class="grid gap-8 md:gap-12">
             <div class="bg-white rounded-lg shadow-md p-6">
-                <!-- Universal video player -->
-                <div class="relative w-full aspect-video">
-                    <!-- Primary video element -->
+                <!-- Universal video player with improved responsive design -->
+                <div class="relative w-full">
                     <video 
-                        class="w-full h-full object-cover rounded-md"
+                        class="w-full h-auto object-cover rounded-md"
                         controls
                         preload="metadata"
                         playsinline
@@ -35,7 +34,6 @@
                         disablepictureinpicture
                         onerror="handleVideoError(this)"
                     >
-                        <!-- Multiple source formats for universal support -->
                         <source src="video.mp4" type="video/mp4">
                         <source src="video.webm" type="video/webm">
                         
@@ -62,10 +60,8 @@
             const errorContainer = document.getElementById('error-message');
             const errorDetails = document.getElementById('error-details');
             
-            // Show error container
             errorContainer.classList.remove('hidden');
             
-            // Check browser capabilities
             if (!video.canPlayType('video/mp4')) {
                 errorDetails.textContent = 'Your browser does not support MP4 format. Please try a different browser or update your current one.';
             } else if (!video.canPlayType('video/webm')) {
