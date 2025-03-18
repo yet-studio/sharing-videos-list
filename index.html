@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Embed Links Collection</title>
     
-    <!-- Production CDN with specific version -->
-    <script src="https://cdn.tailwindcss.com/3.9.8"></script>
+    <!-- Production CDN with stable version -->
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
     
     <!-- Security headers -->
     <meta http-equiv="Content-Security-Policy" content="
@@ -14,7 +14,8 @@
         style-src 'self' https: cdn.tailwindcss.com 'unsafe-inline';
         script-src 'self' https: cdn.tailwindcss.com;
         frame-src 'self' https://www.udio.com;
-        img-src 'self' https:;
+        img-src 'self' https: data:;
+        media-src 'self' https://www.udio.com;
     ">
     
     <!-- Favicon setup -->
@@ -37,7 +38,7 @@
                     class="w-full aspect-video border-none rounded-md"
                     controls
                     preload="metadata"
-                    poster="video-thumbnail.jpg"
+                    poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3Ctext x='200' y='150' font-family='Arial' font-size='24' text-anchor='middle' fill='%236b7280'%3EVideo%20Placeholder%3C/text%3E%3C/svg%3E"
                 >
                     <source src="https://www.udio.com/songs/8ivWt3H2YQcRnbWeYwioux" type="video/mp4">
                     Your browser does not support the video tag.
